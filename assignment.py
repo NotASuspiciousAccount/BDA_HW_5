@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
 import sklearn
-import surprise
-
+#import surprise
+from surprise import Dataset, Reader, SVD
 from sklearn.decomposition import TruncatedSVD
 from sklearn.metrics import mean_squared_error
 
@@ -46,8 +46,29 @@ rmse = np.sqrt(mean_squared_error(ratings_matrix[known_ratings_mask], approx_rat
 print("\nRoot Mean Squared Error (RMSE) between original and approximate matrix: ", rmse)
 
 # Q8
+predicted_df = pd.DataFrame(approx_ratingMatrix, index=matrix.index, columns=matrix.columns)
+# Create a DataFrame for the mask.
+mask_df = pd.DataFrame(known_ratings_mask, index=matrix.index, columns=matrix.columns)
+
+# Define a function to apply styles:
+# - Known ratings: bold and blue.
+# - Predicted ratings: italic and red.
+def style_cell(val, is_known):
+    if is_known:
+        return 'font-weight: bold; color: blue;'
+    else:
+        return 'font-style: italic; color: red;'
+
+# Apply the style to each cell based on the mask.
+def style_row(row):
+    # row.name gives the index label, use it to retrieve the corresponding mask row.
+    mask_row = mask_df.loc[row.name]
+    return [style_cell(val, is_known) for val, is_known in zip(row, mask_row)]
+
+styled_df = predicted_df.style.apply(style_row, axis=1)
 
 
+print(styled_df)
 
 # Q13
 # a. 
