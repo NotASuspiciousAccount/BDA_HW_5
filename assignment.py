@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import sklearn
+import surprise
 
 from sklearn.decomposition import TruncatedSVD
 from sklearn.metrics import mean_squared_error
@@ -13,6 +14,8 @@ from sklearn.metrics import mean_squared_error
 file = "ratingmatrix_BDA.xlsx"
 matrix = pd.read_excel(file, header=0, index_col=0)
 ratings_matrix = matrix.fillna(0).to_numpy()
+# Q2
+print("Ratings Matrix:")
 print(ratings_matrix)
 
 svd = TruncatedSVD(n_components=3)
@@ -41,3 +44,5 @@ known_ratings_mask = ratings_matrix > 0
 # Calculate the RMSE considering only known ratings and no vacant cells
 rmse = np.sqrt(mean_squared_error(ratings_matrix[known_ratings_mask], approx_ratingMatrix[known_ratings_mask]))
 print("\nRoot Mean Squared Error (RMSE) between original and approximate matrix: ", rmse)
+
+# Q8
