@@ -46,3 +46,13 @@ rmse = np.sqrt(mean_squared_error(ratings_matrix[known_ratings_mask], approx_rat
 print("\nRoot Mean Squared Error (RMSE) between original and approximate matrix: ", rmse)
 
 # Q8
+
+
+
+# Q13
+# a. 
+# b. 
+# c. 
+# d. 
+# e. 
+# f. 
